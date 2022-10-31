@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('git checkout') {
       steps {
-        git branch : 'main',
+        git branch : 'master',
         url: 'https://github.com/BENJOU98/cd.git',
         credentialsId: '76b3c500-5725-413f-b4e6-f65054d77287';
         echo 'checkout stage'
