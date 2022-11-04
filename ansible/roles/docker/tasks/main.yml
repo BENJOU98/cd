@@ -3,9 +3,9 @@
 
  - name: create docker image
    docker_image:
-      name: oussemaaaa/projetCD
+      name: projetCD
       build:
-         path: /root/Myapp                
+         path: /var/lib/jenkins/workspace/projectCD                 
          pull: no
       source: build
       state: present
@@ -13,7 +13,7 @@
  - name: run docker container
    docker_container:
       name: cd-container
-      image: oussemaaaa/projetCD:latest
+      image: projetCD:latest
       state: started
       recreate: true
       ports:
