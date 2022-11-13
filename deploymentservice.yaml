@@ -1,36 +1,38 @@
 apiVersion: apps/v1
-kind: Deployment # Kubernetes resource kind we are creating
+kind: Deployment
 metadata:
-  name: spring-boot-k8s-deployment
+  name: nodeapp-deployment
+  labels:
+    app: devops
 spec:
+  replicas: 1
   selector:
     matchLabels:
-      app: spring-boot-k8s
-  replicas: 2 # Number of replicas that will be created for this deployment
+      app: devops
   template:
     metadata:
       labels:
-        app: spring-boot-k8s
+        app: devops 
     spec:
       containers:
-        - name: spring-boot-k8s
-          image: devops:latest # Image that will be used to containers in the cluster
-          imagePullPolicy: IfNotPresent
-          ports:
-            - containerPort: 8084 # The port that the container is running on in the cluster
-
-
+      - name: nodeserver
+        image: ousemaaaa/devops:latest
+        ports:
+        - containerPort: 8082
+        
+        
 ---
 
-apiVersion: v1 # Kubernetes API version
-kind: Service # Kubernetes resource kind we are creating
-metadata: # Metadata of the resource kind we are creating
-  name: springboot-k8ssvc
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodeapp-service
 spec:
   selector:
-    app: spring-boot-k8s
+    app: devops 
+  type: LoadBalancer
   ports:
-    - protocol: "TCP"
-      port: 8084 # The port that the service is running on in the cluster
-      targetPort: 8084 # The port exposed by the service
-  type: NodePort # type of the service.
+  - protocol: TCP
+    port: 5000
+    targetPort: 8082
+    nodePort: 31110
