@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: nodeserver
-        image: ousemaaaa/devops:latest
+        image: oussemaaaa/devops:latest
         ports:
         - containerPort: 8082
         
